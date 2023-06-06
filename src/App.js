@@ -9,17 +9,19 @@ import Header from "./components/Header";
 
 function App() {
   return (
-    <Router>
-    <Header/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Profile" element={<Profile />} />
-        <Route path="/Sign-in" element={<Signin />} />
-        <Route path="/Sign-out" element={<Signout />} />
-        <Route path="/Forgot-Password" element={<ForgotPassword />} />
-        <Route path="/Offers" element={<Offers />} />
-      </Routes>
-    </Router>
+    <div className="bg-slate-100">
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/Sign-in" element={<Signin />} />
+          <Route path="/Sign-out" element={<Signout />} />
+          <Route path="/Forgot-Password" element={<ForgotPassword />} />
+          <Route path="/Offers" element={<Offers />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
