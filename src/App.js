@@ -6,6 +6,7 @@ import Signout from "./pages/Signout";
 import ForgotPassword from "./pages/ForgotPassword";
 import Offers from "./pages/Offers";
 import Header from "./components/Header";
+import Signup from "./pages/Signout";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Sign-in" element={<Signin />} />
-          <Route path="/Sign-out" element={<Signout />} />
+          <Route path="/Sign-up" element={<Signup />} />
           <Route path="/Forgot-Password" element={<ForgotPassword />} />
           <Route path="/Offers" element={<Offers />} />
         </Routes>

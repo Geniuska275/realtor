@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import OAuth from "../components/OAuth";
 export default function Signin() {
   const [formData, setFormData] = useState({
     email: "",
@@ -59,12 +60,34 @@ export default function Signin() {
             </div>
             <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg ">
               <p>
-                Don't have an account ? <Link to="/Sign-up">Register</Link>
+                Don't have an account ?{" "}
+                <Link to="/Sign-up" className="font-semibold text-blue-700">
+                  Register
+                </Link>
               </p>
               <p>
-                <Link to="/Forgot-Password">Forgot Password?</Link>
+                <Link
+                  to="/Forgot-Password"
+                  className="font-semibold text-red-600"
+                >
+                  Forgot Password?
+                </Link>
               </p>
             </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md mt-2 hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
+            >
+              sign in
+            </button>
+            <div
+              className="my-4 items-center flex before:border-t before:flex-1  before:border-gray-300
+        after:border-t after:flex-1  after:border-gray-300
+          "
+            >
+              <p className="text-center font-semibold mx-4">OR</p>
+            </div>
+            <OAuth />
           </form>
         </div>
       </div>
