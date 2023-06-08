@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import OAuth from "../components/OAuth";
-
+import { auth } from "../config/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { db } from "../config/firebase";
+import { serverTimestamp, setDoc, doc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 export default function Signup() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,11 +17,31 @@ export default function Signup() {
   const [showpassword, setShowPassword] = useState(false);
   const { name, email, password } = formData;
   function onChange(e) {
-    e.preventDefault();
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
+  }
+  async function onSubmit(e) {
+    e.preventDefault();
+    try {
+      const usercredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+      const user = usercredential.user;
+      const FormDataCopy = { ...formData };
+      delete FormDataCopy.password;
+      FormDataCopy.timestamp = serverTimestamp();
+      await setDoc(doc(db, "users", user.uid), FormDataCopy);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <section>
@@ -29,8 +54,8 @@ export default function Signup() {
             className="w-full rounded-sm shadow-lg"
           />
         </div>
-        <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-4">
-          <form>
+        <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-7">
+          <form onSubmit={onSubmit}>
             <input
               type="text"
               className="w-full px-4 py-2 mb-6 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"

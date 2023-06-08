@@ -15,7 +15,7 @@ export default function ForgotPassword() {
             className="w-full rounded-sm shadow-lg"
           />
         </div>
-        <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-4">
+        <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-7">
           <form>
             <input
               type="text"
@@ -34,8 +34,8 @@ export default function ForgotPassword() {
                 </Link>
               </p>
               <p>
-                <Link to="/Sign-in" className="font-semibold text-red-600">
-                  Sign in
+                <Link to="/Sign-up" className="font-semibold text-red-600">
+                  Sign up
                 </Link>
               </p>
             </div>

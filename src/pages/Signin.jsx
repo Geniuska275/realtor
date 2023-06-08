@@ -27,7 +27,7 @@ export default function Signin() {
             className="w-full rounded-sm shadow-lg"
           />
         </div>
-        <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-4">
+        <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-7">
           <form>
             <input
               type="text"
