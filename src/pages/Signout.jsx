@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { db } from "../config/firebase";
 import { serverTimestamp, setDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export default function Signup() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -41,6 +42,7 @@ export default function Signup() {
       navigate("/");
     } catch (error) {
       console.log(error);
+      toast.error("something went wrong");
     }
   }
   return (

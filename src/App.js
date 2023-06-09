@@ -8,6 +8,8 @@ import Offers from "./pages/Offers";
 import Header from "./components/Header";
 import Signup from "./pages/Signout";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div className="bg-slate-100">
@@ -22,6 +24,18 @@ function App() {
           <Route path="/Offers" element={<Offers />} />
         </Routes>
       </Router>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }
