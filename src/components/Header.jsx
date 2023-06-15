@@ -21,6 +21,7 @@ export default function Header() {
     console.log(route);
     console.log(location.pathname);
     if (route === location.pathname) {
+      console.log("true");
       return true;
     }
   };
@@ -38,25 +39,25 @@ export default function Header() {
         <div>
           <ul className="flex space-x-10">
             <li
-              className={`py-3 text-sm font-semibold cursor-pointer text-gray-400 border-b-[3px] border-b-transparent ${
-                pathMatchRoute("/") && "text-black border-b-blue-700"
+              className={`py-3 text-sm font-semibold cursor-pointer text-gray-400 border-b-[3px] ${
+                pathMatchRoute("/") && "text-blue-500 border-b-blue-700"
               }`}
               onClick={() => navigate("/")}
             >
               Home
             </li>
             <li
-              className={`py-3 text-sm  cursor-pointer font-semibold text-gray-400 border-b-[3px] border-b-transparent ${
-                pathMatchRoute("/Offers") && "text-black border-b-blue-700"
+              className={`py-3 text-sm  cursor-pointer font-semibold text-gray-400 border-b-[3px] ${
+                pathMatchRoute("/Offers") && "text-blue-500 border-b-blue-700"
               }`}
               onClick={() => navigate("/Offers")}
             >
               Offers
             </li>
             <li
-              className={`py-3 text-sm font-semibold cursor-pointer text-gray-400 border-b-[3px] border-b-transparent ${
+              className={`py-3 text-sm font-semibold cursor-pointer text-gray-400 border-b-[3px]  ${
                 (pathMatchRoute("/Sign-in") || pathMatchRoute("/Profile")) &&
-                "text-black border-b-blue-700"
+                "text-blue-500 border-b-blue-700"
               }`}
               onClick={() => navigate("/Profile")}
             >
