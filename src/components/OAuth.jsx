@@ -12,16 +12,15 @@ export default function OAuth() {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      // check for the user
-      // const docRef = doc(db, "users", user.uid);
-      // const docSnap = await getDoc(docRef);
-      // if (!docSnap.exists()) {
-      //   await setDoc(docRef, {
-      //     name: user.displayName,
-      //     email: user.email,
-      //     timestamp: serverTimestamp(),
-      //   });
-      // }
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        await setDoc(docRef, {
+          name: user.displayName,
+          email: user.email,
+          timestamp: serverTimestamp(),
+        });
+      }
     } catch (error) {
       toast.error("could no authorize with Google");
     }

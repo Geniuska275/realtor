@@ -42,7 +42,7 @@ export default function Signup() {
       navigate("/");
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong");
+      toast.error(error);
     }
   }
   return (
