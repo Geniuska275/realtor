@@ -25,7 +25,7 @@ export default function Header() {
     }
   };
   return (
-    <div className="bg-white border-b shadow-sm sticky top-0 z-50">
+    <div className="bg-white border-b shadow-sm sticky top-0 z-40">
       <header className="flex justify-between items-center px-3 max-w-6xl mx-auto ">
         <div>
           <h1
@@ -55,7 +55,7 @@ export default function Header() {
             </li>
             <li
               className={`py-3 text-sm font-semibold cursor-pointer text-gray-400 border-b-[3px] border-b-transparent ${
-                (pathMatchRoute("/Sign-in") || pathMatchRoute("/Sign-in")) &&
+                (pathMatchRoute("/Sign-in") || pathMatchRoute("/Profile")) &&
                 "text-black border-b-blue-700"
               }`}
               onClick={() => navigate("/Profile")}
