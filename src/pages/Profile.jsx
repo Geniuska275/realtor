@@ -44,7 +44,7 @@ export default function Profile() {
     }
   }
   return (
-    <div className="p-40 h-full">
+    <div className=" md:p-40 h-full">
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
         <h1 className=" text-3xl text-center mt-6 font-bold">My Profile</h1>
         <div className="w-full md:w-[50%] mt-6 px-3">
@@ -56,7 +56,7 @@ export default function Profile() {
               disabled={!changeDetails}
               onChange={onchange}
               className={`w-full px-4 py-2 text-xl mb-6 text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
-                changeDetails && "bg-red-200 focus:bg-red-200"
+                changeDetails && "bg-blue-200 focus:bg-blue-200"
               }`}
             />
             <input
@@ -66,7 +66,7 @@ export default function Profile() {
               onChange={onchange}
               disabled={!changeDetails}
               className={`w-full px-4 py-2 text-xl mb-6 text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
-                changeDetails && "bg-red-200 focus:bg-red-200"
+                changeDetails && "bg-blue-200 focus:bg-blue-200"
               }`}
             />
             <div className="flex justify-between items-center text-sm whitespace-nowrap sm:text-lg">

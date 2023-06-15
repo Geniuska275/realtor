@@ -39,9 +39,9 @@ export default function Header() {
         <div>
           <ul className="flex space-x-10">
             <li
-              className={`py-3 text-sm font-semibold cursor-pointer text-gray-400 border-b-[3px] ${
+              className={`py-3 text-sm font-semibold cursor-pointer  text-gray-400 border-b-[3px] ${
                 pathMatchRoute("/") && "text-blue-500 border-b-blue-700"
-              }`}
+              }  border-b-transparent`}
               onClick={() => navigate("/")}
             >
               Home
