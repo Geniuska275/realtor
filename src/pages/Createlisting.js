@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export default function Createlisting() {
   const [formData, setFormData] = useState({
     type: "rent",
-    name: "kingsley",
+    name: "",
     bedrooms: 1,
     bathrooms: 1,
     parking: false,
@@ -11,9 +11,9 @@ export default function Createlisting() {
     address: "",
     description: "",
     offer: true,
-    regularPrice: 20,
-    discountedPrice: 40,
-    percentageDiscount: 2,
+    regularprice: 1,
+    discountedPrice: 1,
+    percentageDiscount: 1,
   });
   const {
     type,
@@ -25,11 +25,36 @@ export default function Createlisting() {
     address,
     description,
     offer,
-    regularPrice,
+    regularprice,
     discountedPrice,
     percentageDiscount,
   } = formData;
-  function onChange() {}
+  function onchange(e) {
+    e.preventDefault();
+    let boolean = null;
+    if (e.target.value === "true") {
+      boolean = true;
+    }
+    if (e.target.value === "false") {
+      boolean = false;
+    }
+    //files
+    if (e.target.files) {
+      setFormData((prevstate) => ({
+        ...prevstate,
+        images: e.target.files,
+      }));
+    }
+    // text ,boolean or number
+    if (!e.target.files) {
+      setFormData((prevstate) => ({
+        ...prevstate,
+        [e.target.id]: boolean ?? e.target.value,
+      }));
+    }
+  }
+
+  console.log(formData);
   return (
     <main className="max-w-md px-2 mx-auto">
       <h1 className="font-bold text-3xl text-center mt-6 mb-6 ">
@@ -59,7 +84,7 @@ export default function Createlisting() {
             }`}
             type="button"
             id="type"
-            value="sale"
+            value="rent"
             onClick={onchange}
           >
             rent
@@ -70,7 +95,7 @@ export default function Createlisting() {
           type="text"
           id="name"
           value={name}
-          onChange={onChange}
+          onChange={onchange}
           className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 bg-white focus:border-slate-600 mb-6"
           placeholder="Name"
           maxLength="32"
@@ -84,10 +109,10 @@ export default function Createlisting() {
               type="number"
               id="bedrooms"
               value={bedrooms}
-              onChange={onChange}
-              minLength="1"
+              onChange={onchange}
+              min="1"
               className="text-xl w-full px-4 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:border-slate-600 text-center "
-              maxLength="50"
+              max="50"
               required
             />
           </div>
@@ -95,12 +120,12 @@ export default function Createlisting() {
             <p className="text-lg font-semibold">Bathrooms</p>
             <input
               type="number"
-              id="bedrooms"
+              id="bathrooms"
               value={bathrooms}
-              onChange={onChange}
-              minLength="1"
+              onChange={onchange}
+              min="1"
               className="text-xl w-full px-4 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:border-slate-600 text-center "
-              maxLength="50"
+              max="50"
               required
             />
           </div>
@@ -109,22 +134,22 @@ export default function Createlisting() {
         <div className="flex">
           <button
             className={`px-7 py-3 mr-3 font-medium text-sm uppercase shadow-md rounded focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              parking ? "bg-white text-black" : "bg-slate-600 text-white"
+              !parking ? "bg-white text-black" : "bg-slate-600 text-white"
             }`}
             type="button"
             id="parking"
-            value={true}
+            value="true"
             onClick={onchange}
           >
             Yes
           </button>
           <button
             className={`px-7 py-3 ml-3 font-medium text-sm uppercase shadow-md rounded focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              !parking ? "bg-white text-black" : "bg-slate-600 text-white"
+              parking ? "bg-white text-black" : "bg-slate-600 text-white"
             }`}
             type="button"
             id="parking"
-            value={false}
+            value="false"
             onClick={onchange}
           >
             No
@@ -135,22 +160,22 @@ export default function Createlisting() {
         <div className="flex">
           <button
             className={`px-7 py-3 mr-3 font-medium text-sm uppercase shadow-md rounded focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              furnished ? "bg-white text-black" : "bg-slate-600 text-white"
+              !furnished ? "bg-white text-black" : "bg-slate-600 text-white"
             }`}
             type="button"
             id="furnished"
-            value={true}
+            value="true"
             onClick={onchange}
           >
             Yes
           </button>
           <button
             className={`px-7 py-3 ml-3 font-medium text-sm uppercase shadow-md rounded focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              !furnished ? "bg-white text-black" : "bg-slate-600 text-white"
+              furnished ? "bg-white text-black" : "bg-slate-600 text-white"
             }`}
             type="button"
             id="furnished"
-            value={false}
+            value="false"
             onClick={onchange}
           >
             No
@@ -159,9 +184,9 @@ export default function Createlisting() {
         <p className="text-lg font-semibold  mt-2">Address</p>
         <textarea
           type="text"
-          id="Address"
+          id="address"
           value={address}
-          onChange={onChange}
+          onChange={onchange}
           className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 bg-white focus:border-slate-600 mb-6"
           placeholder="Address"
           required
@@ -171,9 +196,9 @@ export default function Createlisting() {
           type="text"
           id="description"
           value={description}
-          onChange={onChange}
+          onChange={onchange}
           className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 bg-white focus:border-slate-600 mb-6"
-          placeholder="Address"
+          placeholder="description"
           required
         />
 
@@ -181,22 +206,22 @@ export default function Createlisting() {
         <div className="flex">
           <button
             className={`px-7 py-3 mr-3 font-medium text-sm uppercase shadow-md rounded focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              offer ? "bg-white text-black" : "bg-slate-600 text-white"
+              !offer ? "bg-white text-black" : "bg-slate-600 text-white"
             }`}
             type="button"
             id="offer"
-            value={true}
+            value="true"
             onClick={onchange}
           >
             Yes
           </button>
           <button
             className={`px-7 py-3 ml-3 font-medium text-sm uppercase shadow-md rounded focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              !offer ? "bg-white text-black" : "bg-slate-600 text-white"
+              offer ? "bg-white text-black" : "bg-slate-600 text-white"
             }`}
             type="button"
             id="offer"
-            value={false}
+            value="false"
             onClick={onchange}
           >
             No
@@ -209,10 +234,11 @@ export default function Createlisting() {
             <div className="flex w-full space-x-6">
               <input
                 type="number"
-                id="regularPrice"
-                value={regularPrice}
+                id="regularprice"
+                value={regularprice}
                 max="5000000"
                 min="50"
+                onChange={onchange}
                 className="w-[100px] px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 transition durattion-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
                 required
               />
@@ -233,12 +259,13 @@ export default function Createlisting() {
               <div className="flex w-full space-x-6 items-center">
                 <input
                   type="number"
-                  id="discountedPrice"
+                  id="percentageDiscount"
                   value={percentageDiscount}
                   max="5000000"
                   min="50"
                   className="w-[100px] px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 transition durattion-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
                   required
+                  onChange={onchange}
                 />
                 {type === "rent" ? (
                   <div>
@@ -257,6 +284,7 @@ export default function Createlisting() {
               <p className="text-lg font-semibold"> Discounted Price</p>
               <div className="flex w-full space-x-6 items-center">
                 <input
+                  onChange={onchange}
                   type="number"
                   id="discountedPrice"
                   value={discountedPrice}
@@ -284,7 +312,7 @@ export default function Createlisting() {
           <input
             type="file"
             id="images"
-            onChange={onChange}
+            onChange={onchange}
             accept=".jpg,.png,.jpeg"
             multiple
             required
