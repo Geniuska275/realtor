@@ -11,6 +11,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Createlisting from "./pages/Createlisting";
 function App() {
   return (
     <div className="bg-slate-100">
@@ -22,11 +23,12 @@ function App() {
           <Route path="/Profile" element={<PrivateRoute />}>
             <Route path="/Profile" element={<Profile />} />
           </Route>
-
+          {/* locked route */}
           <Route path="/Sign-in" element={<Signin />} />
           <Route path="/Sign-up" element={<Signup />} />
           <Route path="/Forgot-Password" element={<ForgotPassword />} />
           <Route path="/Offers" element={<Offers />} />
+          <Route path="/create-listings" element={<Createlisting />} />
         </Routes>
       </Router>
       <ToastContainer
