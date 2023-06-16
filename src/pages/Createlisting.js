@@ -32,8 +32,10 @@ export default function Createlisting() {
   function onChange() {}
   return (
     <main className="max-w-md px-2 mx-auto">
-      <h1 className="font-bold text-3xl text-center mt-6 ">Create a listing</h1>
-      <form>
+      <h1 className="font-bold text-3xl text-center mt-6 mb-6 ">
+        Create a listing
+      </h1>
+      <form className="border border-slate-600 bg-white p-8 shadow-lg rounded">
         <p className="text-lg mt-6 font-semibold capitalize">sell / rent</p>
         <div className="flex">
           <button
