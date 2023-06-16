@@ -1,21 +1,30 @@
 import React, { useState } from "react";
+import Spinner from "../components/Spinner";
+import { toast } from "react-toastify";
 
 export default function Createlisting() {
+  const [geolocationenabled, setGeolocation] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     type: "rent",
-    name: "",
+    name: "kingsley Aigbojie",
     bedrooms: 1,
     bathrooms: 1,
     parking: false,
     furnished: false,
-    address: "",
-    description: "",
+    address: " hhhdhdhhdhdhdhdhdhdhdhdhdhd",
+    description: "gdgdgdgdgdgdgdgdgdgdggdgd",
     offer: true,
     regularprice: 1,
     discountedPrice: 1,
     percentageDiscount: 1,
+    latitude: 0,
+    longitude: 0,
+    images: {},
   });
   const {
+    latitude,
+    longitude,
     type,
     name,
     bedrooms,
@@ -28,9 +37,9 @@ export default function Createlisting() {
     regularprice,
     discountedPrice,
     percentageDiscount,
+    images,
   } = formData;
   function onchange(e) {
-    e.preventDefault();
     let boolean = null;
     if (e.target.value === "true") {
       boolean = true;
@@ -53,14 +62,39 @@ export default function Createlisting() {
       }));
     }
   }
+  function onSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    if (discountedPrice >= regularprice) {
+      setLoading(false);
+      toast.error("discounted price should not more than regular price");
+      return;
+    }
+    if (images.length > 6) {
+      setLoading(false);
+      toast.error("maximum 6 images are allowed");
+      return;
+    }
+    let geolocation={}
+    let location
+    if(geolocationenabled){
+      
+    }
+  }
 
+  if (loading) {
+    return <Spinner />;
+  }
   console.log(formData);
   return (
     <main className="max-w-md px-2 mx-auto">
       <h1 className="font-bold text-3xl text-center mt-6 mb-6 ">
         Create a listing
       </h1>
-      <form className="border border-slate-600 bg-white p-8 shadow-lg rounded">
+      <form
+        className="border border-slate-600 bg-white p-8 shadow-lg rounded"
+        onSubmit={onSubmit}
+      >
         <p className="text-lg mt-6 font-semibold capitalize">sell / rent</p>
         <div className="flex">
           <button
@@ -191,6 +225,36 @@ export default function Createlisting() {
           placeholder="Address"
           required
         />
+        {!geolocationenabled && (
+          <div className="flex space-x-6">
+            <div className="">
+              <p className="text-lg font-semibold">Latitude</p>
+              <input
+                id="latitude"
+                min="-90"
+                max="90"
+                type="number"
+                value={latitude}
+                onChange={onchange}
+                className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 bg-white focus:border-slate-600 mb-6"
+                required
+              />
+            </div>
+            <div className="">
+              <p className="text-lg font-semibold">Longitude</p>
+              <input
+                id="longitude"
+                min="-180"
+                max="180"
+                type="number"
+                value={longitude}
+                onChange={onchange}
+                className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 bg-white focus:border-slate-600 mb-6"
+                required
+              />
+            </div>
+          </div>
+        )}
         <p className="text-lg font-semibold  ">Description</p>
         <textarea
           type="text"
