@@ -1,8 +1,18 @@
 import React, { useState } from "react";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default function Createlisting() {
+  const auth = getAuth();
   const [geolocationenabled, setGeolocation] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -62,7 +72,40 @@ export default function Createlisting() {
       }));
     }
   }
-  function onSubmit(e) {
+
+  async function storeImage(image) {
+    return new Promise((resolve, reject) => {
+      const storage = getStorage();
+      const filename = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`;
+      const storageRef = ref(storage, filename);
+      const uploadTask = uploadBytesResumable(storageRef, image);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(progress + "%done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+        },
+        (error) => {
+          reject(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            resolve(downloadURL);
+          });
+        }
+      );
+    });
+  }
+  async function onSubmit(e) {
     e.preventDefault();
     setLoading(true);
     if (discountedPrice >= regularprice) {
@@ -75,11 +118,17 @@ export default function Createlisting() {
       toast.error("maximum 6 images are allowed");
       return;
     }
-    let geolocation={}
-    let location
-    if(geolocationenabled){
-      
-    }
+    console.log(images);
+    const imgUrls = await Promise.all(
+      [...images]
+        .map((image) => storeImage(image))
+        .catch((error) => {
+          setLoading(false);
+          toast.error("Images not uploaded");
+          return;
+        })
+    );
+    console.log(imgUrls);
   }
 
   if (loading) {
